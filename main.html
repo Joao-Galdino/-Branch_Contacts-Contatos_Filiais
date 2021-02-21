@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+
+    
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <style>
+      .nav-link {
+        cursor:pointer;
+      }
+      .container{
+        font-size: 15px;
+        padding-top: 200px;
+        padding-right: 30px;
+        padding-bottom: 50px;
+        padding-left: 80px;
+      }
+      .qeq{
+        font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+        font-size: 25px;
+        letter-spacing: 2px;
+        word-spacing: 2px;
+        color: #054931;
+        font-weight: 700;
+        text-decoration: none solid rgb(68, 68, 68);
+        font-style: normal;
+        font-variant: small-caps;
+        text-transform: none;
+
+      }
+      .fix{
+        background-color:#054931;
+
+      }
+      
+    </style>
+  
+  </head>
+  <body>
+    <nav class="navbar fix">
+      <div class="container-fluid">
+        <a class="navbar-brand"></a>
+      </div>
+    </nav>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img src="https://www.transportadoraamericana.com.br/site/wp-content/uploads/2015/09/logo-TA-150x40.png" alt="" width="150" height="40" class="d-inline-block align-top"> 
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link active" aria-current="page" id="search-link" href="#">Buscar</a>
+            <a class="nav-link" href="#"id="home-link">Editar Colaboradpr</a>
+            <a class="nav-link" href="#"id="add-customer-link">Adicionar</a>
+          </div>
+        </div>
+          <div align="left" class="animate__animated animate__fadeIn qeq">Quem é Quem? - 2021</div>
+      </div>
+    </nav>
+    </br>
+
+    <div id="app"class="container border border-1 border-success shadow p-3 mb-5 bg-body rounded"></div>
+      <!-- Content here -->
+    <nav class="navbar fixed-bottom fix ">
+      <div class="container-fluid">
+      <a class="navbar-brand" href="#">Desenvolvimento: João Galdino</a>
+    </div>
+  </nav>
+  </div>
+  
+
+
+    <!-- Optional JavaScript; choose one of the two! -->
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
+    <script>
+    var data;
+
+    function loadView(options){
+      var id = typeof options.id === "undefined" ? "app" : options.id;
+      var cb = typeof options.callback === "undefined" ? function(){} : options.callback;
+    
+      google.script.run.withSuccessHandler(function(html){
+          document.getElementById(id).innerHTML = html;
+          typeof options.params === "undefined" ? cb() : cb(options.params);
+        })[options.func]();
+    }
+
+ function setDataForSearch(){
+   google.script.run.withSuccessHandler(function(dataReturned){
+     data = dataReturned.slice();
+   }).getDataForSearch();
+ }
+
+ function search(){
+ 
+  var searchInput = document.getElementById("searchInput").value.toString().toLowerCase().trim();
+  var searchWords = searchInput.split(/\s+/);
+  var searchColumns = [1,2,3];
+  // and or 
+
+  var resultsArray = searchInput === "" ? [] : data.filter(function(r){
+
+
+    return searchWords.every(function(word){
+      return searchColumns.some(function(colIndex){
+        return r[colIndex].toString().toLowerCase().indexOf(word) !== -1
+      });
+    });    
+  });
+  var searchResultsBox = document.getElementById("searchResults");
+  var templateBox = document.getElementById("rowTemplate");
+  var template = templateBox.content;
+  searchResultsBox.innerHTML  = "";
+  resultsArray.forEach(function(r){
+  
+    var tr = template.cloneNode(true);
+    var  custIDColumn = tr.querySelector(".branch");
+    var branchColumn = tr.querySelector(".branch");
+    var functionColumn = tr.querySelector(".functionInfo");
+    var nameColumn = tr.querySelector(".name");
+    var emailColumn = tr.querySelector(".email");
+    var phone1Column = tr.querySelector(".phone1");
+    var phone2Column = tr.querySelector(".phone2");
+    // var voteColumn = tr.querySelector(".vote");
+    var deleteButton = tr.querySelector(".btnDell");
+    var editButton = tr.querySelector(".btnEdit");
+    var sendEmailButton = tr.querySelector(".btnSendEmail");
+
+
+    // var phone2Column = tr.querySelector(".phone2");
+    custIDColumn.textContent = r[0];
+    deleteButton.dataset.customerId = r[0];
+    editButton.dataset.customerId = r[0];
+    sendEmailButton.dataset.customerId = r[0];
+    branchColumn.textContent = r[1];
+    functionColumn.textContent = r[2];
+    nameColumn.textContent = r[3];
+    emailColumn.textContent = r[4];
+    phone1Column.textContent = r[5];
+    phone2Column.textContent = r[6];
+    // voteColumn.textContent = r[7];
+    searchResultsBox.appendChild(tr);
+  });
+ }
+
+  function deleteCustomer(e){
+
+    var custID = e.target.dataset.customerId;
+    google.script.run.withSuccessHandler(function(){
+      e.target.closest(".result-box").remove();
+    }).deleteById(custID);
+    setDataForSearch();
+  }
+
+  function afterEditViewLoads(params){
+    document.getElementById("customer-id").value = params.custID;
+    google.script.run.withSuccessHandler(function(customerInfo){
+      document.getElementById("branch").value = customerInfo.branch;
+      document.getElementById("functionInfo").value = customerInfo.functionInfo;
+      document.getElementById("name").value = customerInfo.name;
+      document.getElementById("email").value = customerInfo.email;
+      document.getElementById("phone1").value = customerInfo.phone1;
+      // document.getElementById("phone2").value = customerInfo.phone2;
+    }).getCustomerById(params.custID);
+  }
+
+  // // function sendEmail(){
+  //   location.href = "https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=";
+  // }
+
+  function sendEmail(params){
+    document.getElementById("customer-id").value = params.custID;
+    google.script.run.withSuccessHandler(function(customerInfo){
+      document.getElementById("name").value = customerInfo.name;
+      }).getCustomerById(params.custID);
+    var name = customerInfo.email;
+    var email = "joao.anjos@sequoialog.com.br";
+    // var name ="joao"
+    var today = new Date();
+    var curHr = today.getHours();
+    if (curHr < 12) {
+      var length = ('Bom dia,')
+    } else if (curHr < 18) {
+      var length =('Boa tarde,')
+    } else {
+      var length =('Boa noite,')
+    }
+    body = '&body='+length+'%0A%0A'+name+",%0A%0A%0A%0A"
+    var mailto_link = 'https://mail.google.com/mail/?view=cm&fs=1' + body +'&tf=1&to=' + email
+    window = window.open(mailto_link, 'emailWindow')
+    if (window && window.open && !window.closed)         
+      window.close()
+  }
+
+    function loadSearchView(){
+      loadView({func: "loadSearchView", callback: setDataForSearch});
+    }
+    function loadAddCustomerView(){
+      loadView({func: "loadAddCustomersView"});
+    }
+    function loadEditCustomersView(){
+      loadView({func: "loadEditCustomersView"});
+    }
+    document.getElementById("search-link").addEventListener("click",loadSearchView); 
+    document.getElementById("add-customer-link").addEventListener("click",loadAddCustomerView);
+    document.getElementById("home-link").addEventListener("click",loadEditCustomersView);
+
+    function inputEventHandler(e){
+     if(e.target.matches("#searchInput")){
+       search();
+     }
+    }
+    function clickEventHandler(e){
+     if(e.target.matches(".btnDell")){
+      deleteCustomer(e);
+     }
+    }
+    function clickEventHandler(e){
+     if(e.target.matches(".btnEdit")){
+      loadView({func: "loadEditCustomersView", callback: afterEditViewLoads, params:{custID:e.target.dataset.customerId} });
+     }
+    }
+    function clickEventHandler(e){
+     if(e.target.matches(".btnSendEmail")){
+      sendEmail();
+     }
+    }
+
+
+
+
+
+
+    document.getElementById("app").addEventListener("input",inputEventHandler);
+    document.getElementById("app").addEventListener("click",clickEventHandler);
+
+    </script>
+  </body>
+</html>

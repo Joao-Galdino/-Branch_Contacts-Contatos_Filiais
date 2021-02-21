@@ -1,0 +1,62 @@
+<h3 align="center" id="h1">Buscar</h3>
+<style>
+  .container{
+    font-size: 15px;
+  }
+  /* .table table-striped{
+    font-size: 20px;
+
+  } */
+  .form-control:focus {
+    border-color: #198754;
+    box-shadow: inset 0 1px 1px rgba(51, 206, 147, 0.075), 0 0 8px rgba(16, 81, 57, 0.6);
+  }
+
+</style>
+
+<div class="mb-3">
+   <input type="text" class="form-control " id="searchInput" placeholder="Procurar...">
+</div>
+
+
+<table class="table table-striped">
+  <thead>
+     <tr>
+      <th scope="col">Filial</th>
+      <th scope="col">Função</th>
+      <th scope="col">Nome</th>
+      <th scope="col"></th>
+      <th scope="col">E-mail</th>
+      <th scope="col">1ºTelefone</th>
+      <th scope="col">2ºTelefone</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+     </tr>
+  </thead>
+  <tbody id="searchResults">
+  </tbody>
+</table>
+
+<template id="rowTemplate">
+  <tr class="result-box">
+    <td class="branch"></td>
+    <td class="functionInfo"></td>
+    <td class="name"></td>
+    
+    <td><button type="button" class="btnSendEmail btn btn-primary">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-open" viewBox="0 0 16 16">
+  <path d="M8.47 1.318a1 1 0 0 0-.94 0l-6 3.2A1 1 0 0 0 1 5.4v.818l5.724 3.465L8 8.917l1.276.766L15 6.218V5.4a1 1 0 0 0-.53-.882l-6-3.2zM15 7.388l-4.754 2.877L15 13.117v-5.73zm-.035 6.874L8 10.083l-6.965 4.18A1 1 0 0 0 2 15h12a1 1 0 0 0 .965-.738zM1 13.117l4.754-2.852L1 7.387v5.73zM7.059.435a2 2 0 0 1 1.882 0l6 3.2A2 2 0 0 1 16 5.4V14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5.4a2 2 0 0 1 1.059-1.765l6-3.2z"/>
+</svg>
+  </button></td>
+    <td class="email"></td>
+    <td class="phone1"></td>
+    <td class="phone2"></td>
+    <td><button type="button" class="btnEdit btn btn-success btn-sm "><b>Editar</b></button></td>
+    <td><button type="button" class="btnDell btn btn-danger btn-sm"><b>Excluir</b></button></td>
+  </tr>
+</template>
+
+<!-- <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=joao.anjos@sequoialog.com.br" target="_blank">joao.anjos@sequoialog.com.br</a> -->
+
+
+
