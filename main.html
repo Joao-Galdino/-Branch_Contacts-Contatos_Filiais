@@ -56,7 +56,7 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
             <a class="nav-link active" aria-current="page" id="search-link" href="#">Buscar</a>
-            <a class="nav-link" href="#"id="home-link">Editar Colaborador</a>
+            <!-- <a class="nav-link" href="#"id="home-link">Editar Colaborador</a> -->
             <a class="nav-link" href="#"id="add-customer-link">Adicionar Novo Contato</a>
           </div>
         </div>
@@ -145,6 +145,8 @@
       phone1Column.textContent = r[5];
       phone2Column.textContent = r[6];
       // voteColumn.textContent = r[7];
+
+
       searchResultsBox.appendChild(tr);
     });
   }
@@ -191,12 +193,12 @@
 
       var customerInfo={};
       
-      customerInfo.branch = document.getElementById("branch").value;
-      customerInfo.workFunction = document.getElementById("workFunction").value;
-      customerInfo.name = document.getElementById("name").value;
-      customerInfo.email= document.getElementById("email").value;
-      customerInfo.phone1= document.getElementById("phone1").value;
-      customerInfo.phone2= document.getElementById("phone2").value;
+      customerInfo.branch2 = document.getElementById("branch2").value;
+      customerInfo.workFunction2 = document.getElementById("workFunction2").value;
+      customerInfo.name2 = document.getElementById("name2").value;
+      customerInfo.email2= document.getElementById("email2").value;
+      customerInfo.phone12= document.getElementById("phone12").value;
+      customerInfo.phone22= document.getElementById("phone22").value;
       google.script.run.withSuccessHandler(function(){
 
 
@@ -238,7 +240,7 @@
       }
       document.getElementById("search-link").addEventListener("click",loadSearchView); 
       document.getElementById("add-customer-link").addEventListener("click",loadAddCustomerView);
-      document.getElementById("home-link").addEventListener("click",loadEditCustomersView);
+      // document.getElementById("home-link").addEventListener("click",loadEditCustomersView);
 
       function inputEventHandler(e){
       if(e.target.matches("#searchInput")){
@@ -259,9 +261,9 @@
           editCustomer();
         }
         if(e.target.matches(".cancel-changes")){
-
+          loadSearchView();
         }
-        if(e.target.matches("#add-custumer")){
+        if(e.target.matches("#add-custumer-button")){
           addCustomer();
         }
 
@@ -270,7 +272,7 @@
       }
       document.getElementById("app").addEventListener("input",inputEventHandler);
       document.getElementById("app").addEventListener("click",clickEventHandler);
-
+      document.addEventListener("DOMContentLoaded",loadSearchView);
     </script>
   </body>
 </html>

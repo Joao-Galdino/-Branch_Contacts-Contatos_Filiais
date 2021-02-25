@@ -1,7 +1,7 @@
 function getDataForSearch() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const ws = ss.getSheetByName("Contatos");
-  return ws.getRange(2,1,ws.getLastRow()-1,7).getValues();
+  return ws.getRange(2,1,ws.getLastRow()-1,8).getValues();
 }
 
 function deleteById(id){
@@ -54,17 +54,17 @@ function addCustomer(customerInfo){
   const ws = ss.getSheetByName("Contatos");
   var uniqueIDs = ws.getRange(2,1,ws.getLastRow()-1,1).getValues();
   var maxNum = 0;
-  uniqueIDs.forEach(r =>{
+  uniqueIDs.forEach(r => {
     maxNum = r[0] > maxNum ? r[0] : maxNum
   });
   var newID = maxNum +1;
   ws.appendRow([
-    newId,
-    customerInfo.branch,
-    customerInfo.workFunction,
-    customerInfo.name,
-    customerInfo.email,
-    customerInfo.phone1,
-    customerInfo.phone2
-    ]) ;
+                  newID,
+                  customerInfo.branch2,
+                  customerInfo.workFunction2,
+                  customerInfo.name2,
+                  customerInfo.email2,
+                  customerInfo.phone12,
+                  customerInfo.phone22
+              ]) ;
 }
